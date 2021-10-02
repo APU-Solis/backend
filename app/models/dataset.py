@@ -330,16 +330,16 @@ class Dataset:
             api_cloud_amount = \
                 f"/temporal/monthly/point?parameters=CLOUD_AMT&community=RE&latitude={latitude}&longitude={longitude}&start={start}&end={end}&format=JSON"
 
-            api_cloud_amount_daily_response = requests.get(
+            api_cloud_amount_monthly_response = requests.get(
                 self.base_url + api_cloud_amount,
                 verify=True,
                 timeout=30.00
             )
 
-            if api_cloud_amount_daily_response.status_code != 200:
+            if api_cloud_amount_monthly_response.status_code != 200:
                 abort(500, "Cloud Amount API Failure")
 
-            cloud_amount = api_cloud_amount_daily_response.json()['properties']['parameter']['CLOUD_AMT']
+            cloud_amount = api_cloud_amount_monthly_response.json()['properties']['parameter']['CLOUD_AMT']
 
             # Map to values
             cloud_amount_values = cloud_amount.values()
