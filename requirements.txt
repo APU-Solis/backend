@@ -1,0 +1,5 @@
+requests
+flask
+flask_cors
+zappa==0.52.0
+troposphere==2.7.0

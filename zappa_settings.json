@@ -1,0 +1,16 @@
+{
+    "dev": {
+        "app_function": "nasa_backend.app",
+        "aws_region": "ap-southeast-1",
+        "runtime": "python3.6",
+        "project_name": "nasa",
+        "s3_bucket": "zappa-dev-nasa",
+        "timeout_seconds": 900,
+        "keep_warm": true,
+        "manage_roles": false,
+        "role_name": "basic-lambda",
+        "role_arn": "arn:aws:iam::649910780993:role/basic-lambda",
+        "num_retained_versions": 1,
+        "endpoint_configuration": ["REGIONAL"]
+    }
+}
