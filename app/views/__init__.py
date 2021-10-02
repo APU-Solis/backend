@@ -10,7 +10,7 @@ def hello():
         'message': 'App is working.'
     })
 
-@blueprint.route('/solar/details', methods=['GET'])
+@blueprint.route('/angle', methods=['GET'])
 def get_solar_angle():
     latitude, longitude = (
         request.args.get('latitude'), 
@@ -32,7 +32,24 @@ def get_solar_angle():
         )
     )
 
-@blueprint.route('/sky/details', methods=['GET'])
+@blueprint.route('/irradiance', methods=['GET'])
+def get_solar_irradiance():
+    (
+        latitude,
+        longitude
+    ) = (
+        request.args.get('latitude'), 
+        request.args.get('longitude')
+    )
+
+    return jsonify(
+        Dataset().get_solar_irradiance(
+            latitude=latitude,
+            longitude=longitude
+        )
+    )
+
+@blueprint.route('/sky', methods=['GET'])
 def get_clear_sky_and_amount():
     (
         latitude, 
@@ -67,5 +84,28 @@ def get_clear_sky_and_amount():
             community="RE",
             latitude=latitude,
             longitude=longitude
+        )
+    )
+
+@blueprint.route('/average', methods=['GET'])
+def get_calculate_average_between_values():
+    (
+        latitude, 
+        longitude,
+        start,
+        end
+    ) = (
+        request.args.get('latitude'), 
+        request.args.get('longitude'),
+        request.args.get('start'),
+        request.args.get('end')
+    )
+
+    return jsonify(
+        Dataset().calculate_average_between_values(
+            longitude=longitude,
+            latitude=latitude,
+            start=start,
+            end=end
         )
     )
