@@ -73,3 +73,72 @@ class Dataset:
         }
 
         return mapped_key_value_dict
+
+    """
+        Clear Sky & Amount
+    """
+    def get_clear_sky_and_amount(
+        self,
+        mode = "climatology",
+        parameters = None,
+        community = "",
+        longitude = "",
+        latitude = "",
+        start = "2019",
+        end = "2020"
+    ):
+        if parameters is None:
+            abort(400, "Invalid param")
+        if not isinstance(parameters, typing.Iterable):
+            abort(400, "Parameters is not a List")
+
+        # Clear Sky
+        api_clear_sky = \
+            f"/temporal/{mode}/point?parameters={parameters[0]}&community={community}&latitude={latitude}&longitude={longitude}&start={start}&end={end}&format=JSON"
+        # Cloud Amount
+        api_sky_amount = \
+            f"/temporal/{mode}/point?parameters={parameters[1]}&community={community}&latitude={latitude}&longitude={longitude}&start={start}&end={end}&format=JSON"
+
+        # Clear Sky
+        api_clear_sky_response = requests.get(
+            self.base_url + api_clear_sky,
+            verify=True,
+            timeout=30.00
+        )
+        # Cloud Amount
+        api_sky_amount_response = requests.get(
+            self.base_url + api_sky_amount,
+            verify=True,
+            timeout=30.00
+        )
+
+        if api_clear_sky_response.status_code != 200:
+            abort(500, "Clear Sky API Failure")
+        if api_sky_amount_response.status_code != 200:
+            abort(500, "Sky Amount API Failure")
+
+        # Unpack
+        (
+            clear_sky,
+            sky_amount
+        ) = (
+            api_clear_sky_response.json()['properties']['parameter']['CLRSKY_DAYS'],
+            api_sky_amount_response.json()['properties']['parameter']['CLOUD_AMT']
+        )
+
+        # Map responses
+        mapped_key_value_dict = defaultdict(list)
+
+        for (key, value) in chain(clear_sky.items(), sky_amount.items()):
+            mapped_key_value_dict[key].append(value)
+
+        mapped_key_value_dict = {
+            key: {
+                "clear_sky": value[0],
+                "cloud_amount": value[1]
+            }
+            for (key, value)
+            in mapped_key_value_dict.items()
+        }
+
+        return mapped_key_value_dict
