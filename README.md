@@ -27,7 +27,7 @@ https://l1zxnfptyk.execute-api.ap-southeast-1.amazonaws.com/dev/
 
     Request Parameter(s):
     ```
-    ?latitude=123&longitude=123
+    ?latitude=123&longitude=123&start=2019&end=2020
     ```
 
 3. Get Sky Details (Cloud too)
