@@ -42,6 +42,9 @@ def get_solar_irradiance():
         request.args.get('longitude')
     )
 
+    if latitude is None or longitude is None:
+        abort(400, "Parameter not satisfied.")
+
     return jsonify(
         Dataset().get_solar_irradiance(
             latitude=latitude,
