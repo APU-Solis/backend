@@ -36,19 +36,25 @@ def get_solar_angle():
 def get_solar_irradiance():
     (
         latitude,
-        longitude
+        longitude,
+        start,
+        end
     ) = (
         request.args.get('latitude'), 
-        request.args.get('longitude')
+        request.args.get('longitude'),
+        request.args.get('start'),
+        request.args.get('end')
     )
 
-    if latitude is None or longitude is None:
+    if latitude is None or longitude is None or start is None or end is None:
         abort(400, "Parameter not satisfied.")
 
     return jsonify(
         Dataset().get_solar_irradiance(
             latitude=latitude,
-            longitude=longitude
+            longitude=longitude,
+            start=start,
+            end=end
         )
     )
 

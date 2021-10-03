@@ -83,12 +83,14 @@ class Dataset:
     def get_solar_irradiance(
         self,
         longitude = "",
-        latitude = ""
+        latitude = "",
+        start = 2019,
+        end = 2020
     ):
         # Solar Irradiance
         api_solar_irradiance = \
-            f"/temporal/climatology/point?parameters=SI_EF_TILTED_SURFACE&community=RE&latitude={latitude}&longitude={longitude}&format=JSON"
-
+            f"/temporal/climatology/point?parameters=SI_EF_TILTED_SURFACE&community=RE&latitude={latitude}&longitude={longitude}&start={start}&end={end}&format=JSON"
+        
         # Solar Irradiance
         api_solar_irradiance_response = requests.get(
             self.base_url + api_solar_irradiance,
