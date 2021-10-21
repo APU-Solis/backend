@@ -10,7 +10,9 @@
         "manage_roles": false,
         "role_name": "basic-lambda",
         "role_arn": "arn:aws:iam::649910780993:role/basic-lambda",
-        "num_retained_versions": 1,
+        "domain": "api.raeveen.me",
+ 	"base_path": "a",
+	"num_retained_versions": 1,
         "endpoint_configuration": ["REGIONAL"]
     }
 }
