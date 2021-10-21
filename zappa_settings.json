@@ -11,7 +11,7 @@
         "role_name": "basic-lambda",
         "role_arn": "arn:aws:iam::649910780993:role/basic-lambda",
         "domain": "api.raeveen.me",
- 	"base_path": "a",
+ 	"base_path": "nasa",
 	"num_retained_versions": 1,
         "endpoint_configuration": ["REGIONAL"]
     }
